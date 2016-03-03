@@ -3,7 +3,9 @@
 .DS_Store
 
 # Ignoring maven artifacts
-target*
+target/
+*.war
+*.jar
 
 # Ignoring intellij artifacts
 *.iml
