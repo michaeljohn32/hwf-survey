@@ -13,7 +13,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class TestPersistence {
-	static GooglePersistence persistence = new MockStorage();
+	GooglePersistence persistence;
 
     static final String question1="Q1";
     static final String question2="Q2";
@@ -39,15 +39,23 @@ public class TestPersistence {
     static final String answerWrong="No such answer";
 
 
-    @BeforeClass
-    static public void Setup() {
+    // Create an "empty" database, populate with question/answer pairs, simulate a few responses
+    @Before
+    public void Setup() {
 //        System.out.println("Setup() called");
+        persistence = new MockStorage();
+        assertTrue(persistence.addQuestionAnswer(question1, question1Answer1));
+        assertTrue(persistence.addQuestionAnswer(question1, question1Answer2));
+        assertTrue(persistence.addQuestionAnswer(question1, question1Answer3));
+        assertTrue(persistence.addQuestionAnswer(question2, question2Answer1));
+        assertTrue(persistence.addQuestionAnswer(question2, question2Answer2));
+
         //simulating 2 responses of answer 1 for question1
-		persistence.persistQuestion(question1, question1Answer1);
+        persistence.persistQuestion(question1, question1Answer1);
         persistence.persistQuestion(question1, question1Answer1);
 
-        //simulating 3 responses of answer 1 for question1
-		persistence.persistQuestion(question1, question1Answer2);
+        //simulating 3 responses of answer 2 for question1
+        persistence.persistQuestion(question1, question1Answer2);
         persistence.persistQuestion(question1, question1Answer2);
         persistence.persistQuestion(question1, question1Answer2);
 
@@ -57,18 +65,26 @@ public class TestPersistence {
         persistence.persistQuestion(question1, question1Answer3);
 
         //simulating 1 response of answer1 for question 2
-		persistence.persistQuestion(question2, question2Answer1);
+        persistence.persistQuestion(question2, question2Answer1);
 
         //simulating 2 response of answer2 for question 2
-		persistence.persistQuestion(question2, question2Answer2);
         persistence.persistQuestion(question2, question2Answer2);
-	}
+        persistence.persistQuestion(question2, question2Answer2);
+    }
 
     @Test
-    public void storeQuestion(){
-        boolean ok=persistence.persistQuestion("Fake Q", "something");
-        assertTrue(ok);
+    public void addQuestionAnswer(){
+        assertTrue(persistence.addQuestionAnswer(questionWrong, answerWrong));
+        assertTrue(persistence.addQuestionAnswer(questionWrong, answerWrong));
     }
+
+    @Test
+    public void persistQuestion(){
+        assertFalse(persistence.persistQuestion(questionWrong, answerWrong));
+        assertFalse(persistence.persistQuestion(question1, answerWrong));
+        assertTrue(persistence.persistQuestion(question1, question1Answer1));
+    }
+
 
     @Test
     public void getQuestionResults() {
