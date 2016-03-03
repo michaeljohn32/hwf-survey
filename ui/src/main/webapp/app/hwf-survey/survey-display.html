@@ -1,9 +1,11 @@
-<h3>Hello HWF Survey!!!!!!</h3>
+<h3>HWF Survey</h3>
 <br />
 <br />
 <div class="container-fluid" ng-controller="HwfSurveyController as hwfSurveyController">
-    Hi there.
     <br />
-    <br />
-    {{initialMessage}}
+    <form>
+        <div ng-repeat="question in surveydef.questions">
+            {{question.questionText}}
+        </div>
+    </form>
 </div>

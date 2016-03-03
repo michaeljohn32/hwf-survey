@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/survey-definition")
-public class SurveySubmissionController {
+public class SurveyDefinitionController {
 
+    @RequestMapping
     @ResponseStatus(HttpStatus.OK)
     public Survey getSurveyDefinition() {
         Survey survey = new Survey();
-        survey.getSurveyQuestions().add(new SurveyQuestion(1, "How do you rate your Hack With Friends experience?"));
+        survey.getQuestions().add(new SurveyQuestion(1, "How do you rate your Hack With Friends experience?"));
         return survey;
     }
 }

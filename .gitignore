@@ -9,3 +9,6 @@ target*
 *.iml
 .idea/
 
+# Ignore node
+node/
+node_modules/
