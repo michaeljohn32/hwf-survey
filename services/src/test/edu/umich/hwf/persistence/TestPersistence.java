@@ -1,10 +1,12 @@
 package edu.umich.hwf.persistence;
 
+import edu.umich.hwf.persistence.MockStorage;
+
 import java.util.Map;
 import java.util.Set;
 
 public class TestPersistence {
-	static GooglePersistence persistence = new mockStorage();
+	static GooglePersistence persistence = new MockStorage();
 	
 	public static void main(String[] args) {
 		
