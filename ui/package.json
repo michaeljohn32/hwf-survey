@@ -1,0 +1,11 @@
+{
+  "name": "hwf-survey",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "1.5.0",
+    "angular-route": "1.5.0",
+    "angular-resource": "1.5.0",
+    "angular-ui-bootstrap": "1.1.2",
+    "bootstrap": "3.3.6"
+  }
+}

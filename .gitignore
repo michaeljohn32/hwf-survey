@@ -1,0 +1,11 @@
+# Untracked files.
+# Mac OS X Finder and whatnot
+.DS_Store
+
+# Ignoring maven artifacts
+target*
+
+# Ignoring intellij artifacts
+*.iml
+.idea/
+
