@@ -3,6 +3,9 @@ package edu.umich.hwf.persistence;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A mock file for testing.
+ */
 public class MockStorage implements GooglePersistence {
     HashMap<String, HashMap<String, Integer>> surveyResults = new HashMap<String, HashMap<String, Integer>>();
 
