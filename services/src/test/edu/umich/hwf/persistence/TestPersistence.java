@@ -5,21 +5,29 @@ import edu.umich.hwf.persistence.MockStorage;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
 public class TestPersistence {
 	static GooglePersistence persistence = new MockStorage();
 	
-	public static void main(String[] args) {
-		
+    @Before
+    public void Setup() {
 		persistence.persistQuestion("Q1", "a");
 		persistence.persistQuestion("Q1", "b");
 		persistence.persistQuestion("Q1", "a");
 		persistence.persistQuestion("Q1", "b");
 		persistence.persistQuestion("Q2", "Yes");
 		persistence.persistQuestion("Q2", "No");
-		
-		printQuestionResults("Q1");
-		printQuestionResults("Q2");
 	}
+
+    @Test
+    public void storeQuestion(){
+        boolean ok=persistence.persistQuestion("Fake Q", "something");
+        assertTrue(ok);
+    }
 
 	private static void printQuestionResults(String name){
 		
