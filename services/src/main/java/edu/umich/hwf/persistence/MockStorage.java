@@ -1,30 +1,29 @@
 package edu.umich.hwf.persistence;
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A mock file for testing.
- */
+@Component
 public class MockStorage implements GooglePersistence {
-    HashMap<String, HashMap<String, Integer>> surveyResults = new HashMap<String, HashMap<String, Integer>>();
+    HashMap<String, HashMap<String, Integer>> surveyResults = new HashMap<>();
 
     public boolean persistQuestion(String name, String value) {
-
         try {
             if (surveyResults.containsKey(name)) {
 
                 HashMap<String, Integer> questionValues = surveyResults.get(name);
                 if (questionValues.containsKey(value)) {
-                    Integer count = (Integer) questionValues.get(value);
+                    Integer count = questionValues.get(value);
                     questionValues.put(value, count + 1);
                 } else {
-                    questionValues.put(value, new Integer(1));
+                    questionValues.put(value, 1);
                 }
 
             } else {
-                HashMap<String, Integer> question = new HashMap<String, Integer>();
-                question.put(value, new Integer(1));
+                HashMap<String, Integer> question = new HashMap<>();
+                question.put(value, 1);
                 surveyResults.put(name, question);
             }
             return true;
@@ -42,8 +41,6 @@ public class MockStorage implements GooglePersistence {
     }
 
     public HashMap<String, HashMap<String, Integer>> getFullResults() {
-
         return surveyResults;
     }
-
 }

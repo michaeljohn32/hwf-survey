@@ -10,20 +10,29 @@
                 <div><label>{{question.questionText}}</label></div>
                 <div ng-switch on="question.answerType">
                     <div ng-switch-when="BUTTONS">
-                        <div class="btn-group" role="group" ng-repeat="answer in question.availableAnswers">
-                            <button type="button" class="btn btn-secondary">{{answer}}</button>
+                        <div class="btn-group" role="group">
+                            <button ng-repeat="answer in question.availableAnswers" ng-click="question.selectedAnswer = answer" type="button" class="btn btn-secondary">{{answer}}</button>
                         </div>
                     </div>
                     <div ng-switch-when="BUTTONS_VERTICAL">
                         <div class="btn-group-vertical" role="group">
-                            <button ng-repeat="answer in question.availableAnswers" type="button" class="btn btn-secondary">{{answer}}</button>
+                            <button ng-repeat="answer in question.availableAnswers" ng-click="question.selectedAnswer = answer" type="button" class="btn btn-secondary">{{answer}}</button>
                         </div>
                     </div>
                     <div ng-switch-when="TEXTAREA">
-                        <textarea class="form-control"></textarea>
+                        <textarea class="form-control" ng-model="question.selectedAnswer"></textarea>
                     </div>
                 </div>
             </div>
         </div>
+        <input type="submit" value="Submit Survey" ng-click="hwfSurveyController.submitSurvey()"/>
+        <br />
+        <br />
+        <br />
+        Overall Results:
+        <br />
+        <input type="submit" value="Get Results" ng-click="hwfSurveyController.getResults()"/>
+        <br />
+        {{results}}
     </form>
 </div>

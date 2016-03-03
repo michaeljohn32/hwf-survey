@@ -21,8 +21,8 @@ public class SurveyQuestion {
 
     private String questionText;
     private AnswerType answerType;
-    private String freeformAnswer;
     private List<String> availableAnswers;
+    private String selectedAnswer;
 
     public SurveyQuestion(String questionText, AnswerType answerType) {
         this(questionText, answerType, null);
