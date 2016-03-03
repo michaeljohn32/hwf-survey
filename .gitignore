@@ -1,0 +1,10 @@
+syntax: glob
+
+~*
+*.swp
+*.log
+.DS_Store
+*.iml
+*.war
+*.jar
+.idea/
