@@ -1,5 +1,5 @@
 var hwfSurveyControllers = angular.module('hwfSurveyControllers', []);
 
-hwfSurveyControllers.controller('HwfSurveyControllers', function ($scope) {
+hwfSurveyControllers.controller('HwfSurveyController', function ($scope) {
     $scope.initialMessage = 'Hello from controller.';
 });

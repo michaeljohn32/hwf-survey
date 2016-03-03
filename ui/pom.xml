@@ -21,7 +21,7 @@
     </dependencies>
 
     <build>
-        <finalName>hwf-ui</finalName>
+        <finalName>hwf-survey</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
@@ -30,7 +30,7 @@
                 <configuration>
                     <server>${tomcat.server}</server>
                     <url>${tomcat.url}</url>
-                    <path>/hwf-ui</path>
+                    <path>/hwf-survey</path>
                 </configuration>
             </plugin>
             <plugin>
@@ -44,7 +44,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target/hwf-ui/lib</outputDirectory>
+                            <outputDirectory>${basedir}/target/hwf-survey/lib</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>node_modules</directory>
