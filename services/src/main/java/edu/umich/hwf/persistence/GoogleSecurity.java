@@ -63,7 +63,8 @@ public class GoogleSecurity {
         GoogleCredential result = null;
         try {
             // check for valid setup
-            String filePath = serviceAccount.getPrivateKeyFilePath();
+            String home = System.getProperty("user.home");
+            String filePath = home + "/" + serviceAccount.getPrivateKeyFilePath();
             File privateKeyFile = new File(filePath);
             // Get service account credential
             String[] scopes = serviceAccount.getScopesArray();
