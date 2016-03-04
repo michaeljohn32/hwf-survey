@@ -10,21 +10,27 @@ node {
    // **       in the global configuration.           
    def mvnHome = tool 'M3'
 
-   // Mark the code build 'stage'....
-   stage 'Build'
-   // Run the maven build
-   sh "${mvnHome}/bin/mvn clean package"
-   //stash target/hwf-survey.war
+   stage 'Compile'
+   // Run the maven compile
+   sh "${mvnHome}/bin/mvn clean compile"
+
+   stage 'Compile'
+   // Run the maven test
+   sh "${mvnHome}/bin/mvn test"
+
+   stage 'Package'
+   // Run the maven test
+   sh "${mvnHome}/bin/mvn package"
 
    //Build docker image for app and tests in parallel
    stage 'Build Docker Image'
 
-   def mobileSurveyApp
+   def mobileSurveyAppImage
 
     //unstash 'jar-dockerfile'
     dir('target') {
         sh "cp ../Dockerfile ."
-        mobileSurveyAppImage = docker.build("--rm") "hwf-survey:v1"
+        mobileSurveyAppImage = docker.build("--rm") "hwf-survey"
         container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
     }
 
