@@ -76,6 +76,31 @@ public class TestPersistence {
     }
 
     @Test
+    public void persistQuestions(){
+        Map<String, String> responses = new HashMap<String,String>();
+        responses.put(question1,question1Answer1);
+        responses.put(question3,"Any free format text");
+        persistence.persistQuestions(responses);
+
+        Map<String, HashMap<String, Integer>> allRes=persistence.getFullResults();
+        assertEquals(numQ, allRes.size());
+
+        Map<String, Integer> q1res=allRes.get(question1);
+        assertEquals(numQ1A, q1res.size());
+        assertEquals(numQ1A1+1, q1res.get(question1Answer1).intValue());
+        assertEquals(numQ1A2, q1res.get(question1Answer2).intValue());
+
+        Map<String, Integer> q2res=allRes.get(question2);
+        assertEquals(numQ2A, q2res.size());
+        assertEquals(numQ2A1, q2res.get(question2Answer1).intValue());
+        assertEquals(numQ2A2, q2res.get(question2Answer2).intValue());
+
+        Map<String, Integer> q3res=allRes.get(question3);
+        assertEquals(3, q3res.size()); // FIXME: change 3 to a sensible named constant
+    }
+
+
+    @Test
     public void persistQuestion(){
         assertFalse(persistence.persistQuestion(questionWrong, answerWrong, false));
         assertFalse(persistence.persistQuestion(questionWrong, answerWrong, true));
