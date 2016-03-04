@@ -37,7 +37,7 @@ RUN set -x \
 	&& rm bin/*.bat \
 	&& rm tomcat.tar.gz*
 
-ADD $ARTIFACT_URL $CATALINA_HOME/webapps/
+COPY $ARTIFACT_URL $CATALINA_HOME/webapps/
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
