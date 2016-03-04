@@ -25,27 +25,28 @@ node {
    //Build docker image for app and tests in parallel
    stage 'Build Docker Image'
    def mobileSurveyAppImage
-
-   dir('target') {
-        sh "cp ../Dockerfile ."
-        mobileSurveyAppImage = docker.build "hwf-survey"
-       // container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
-    }
+   sh "/bin/ls"
+#   dir('target') {
+#        sh "cp ../Dockerfile ."
+#        mobileSurveyAppImage = docker.build "hwf-survey"
+#       // container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
+#    }
 
    stage 'Publish Docker Image'
-        sh "docker -v"
-        //use withDockerRegistry to make sure we are logged in to docker hub registry
-        withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
-            mobileSurveyAppImage.push()
-        }
+#        sh "docker -v"
+#        //use withDockerRegistry to make sure we are logged in to docker hub registry
+#        withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
+#            mobileSurveyAppImage.push()
+#        }
+   sh "/bin/ls"
    stage 'Function test'
    def mobileSurveyFuncImage
 
         git url: 'https://github.com/UM-RAD-hack-2016/hwf-survey-functional-tests.git'
         sh "${mvnHome}/bin/mvn clean install"
 
-        mobileSurveyFuncImage = docker.build "hwf-survey-func"
-        withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
-            mobileSurveyAppImage.push()
-        }
+#        mobileSurveyFuncImage = docker.build "hwf-survey-func"
+#        withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
+#            mobileSurveyAppImage.push()
+#        }
     }
