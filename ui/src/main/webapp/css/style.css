@@ -4,6 +4,17 @@
 .surveyContainer {
     background-color:#ffffff;
 }
+.half-width, .half-width-container {
+    width:50%;
+}
+@media (max-width: 768px) {
+    .half-width-container {
+        width:100%
+    }
+}
+.full-width {
+    width:100%;
+}
 
 .btn-primary {
     color: #fff;
