@@ -1,7 +1,7 @@
 var hwfSurveyApp = angular.module('hwfSurveyApp', [
     'ngRoute',
     'ui.bootstrap',
-    'hwfSurveyControllers',
+    'hwfSurveyControllers'
 ]);
 
 hwfSurveyApp

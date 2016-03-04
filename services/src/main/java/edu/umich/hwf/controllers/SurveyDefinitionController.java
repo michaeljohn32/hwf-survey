@@ -24,38 +24,7 @@ public class SurveyDefinitionController {
     @RequestMapping
     @ResponseStatus(HttpStatus.OK)
     public Survey getSurveyDefinition() {
-        Survey survey = new Survey();
-
-        survey.getQuestions().add(new SurveyQuestion("Would you attend Hacks with Friends next year?",
-                AnswerType.BUTTONS,
-                new ArrayList<String>() {{
-                    add(ANSWER_YES);
-                    add(ANSWER_NO);
-        }}));
-
-        survey.getQuestions().add(new SurveyQuestion("How would you rate your overall experience at Hacks with Friends?",
-                AnswerType.BUTTONS_VERTICAL,
-                new ArrayList<String>() {{
-                    add(ANSWER_EXTREMELY_LOW);
-                    add(ANSWER_LOW);
-                    add(ANSWER_AVERAGE);
-                    add(ANSWER_ABOVE_AVERAGE);
-                    add(ANSWER_EXTREMELY_HIGH);
-        }}));
-
-        survey.getQuestions().add(new SurveyQuestion("Did you learn something that could be useful at your present job?",
-                AnswerType.BUTTONS,
-                new ArrayList<String>() {{
-                    add(ANSWER_YES);
-                    add(ANSWER_NO);
-        }}));
-
-        survey.getQuestions().add(new SurveyQuestion("What could we do to improve Hacks with Friends next year?", AnswerType.TEXTAREA));
-
-        survey.getQuestions().add(new SurveyQuestion("Other feedback or comments?", AnswerType.TEXTAREA));
-
         registerSurveyQuestionAnswers(survey);
-
         return survey;
     }
 
@@ -66,4 +35,32 @@ public class SurveyDefinitionController {
             }
         });
     }
+
+    public static final Survey survey = new Survey(new ArrayList<SurveyQuestion>() {{
+        add(new SurveyQuestion("Would you attend Hacks with Friends next year?",
+                AnswerType.BUTTONS,
+                new ArrayList<String>() {{
+                    add(ANSWER_NO);
+                    add(ANSWER_YES);
+                }}));
+        add(new SurveyQuestion("How would you rate your overall experience at Hacks with Friends?",
+                AnswerType.BUTTONS_VERTICAL,
+                new ArrayList<String>() {{
+                    add(ANSWER_EXTREMELY_LOW);
+                    add(ANSWER_LOW);
+                    add(ANSWER_AVERAGE);
+                    add(ANSWER_ABOVE_AVERAGE);
+                    add(ANSWER_EXTREMELY_HIGH);
+                }}));
+        add(new SurveyQuestion("Did you learn something that could be useful at your present job?",
+                AnswerType.BUTTONS,
+                new ArrayList<String>() {{
+                    add(ANSWER_NO);
+                    add(ANSWER_YES);
+                }}));
+
+        add(new SurveyQuestion("What could we do to improve Hacks with Friends next year?", AnswerType.TEXTAREA));
+
+        add(new SurveyQuestion("Other feedback or comments?", AnswerType.TEXTAREA));
+    }});
 }

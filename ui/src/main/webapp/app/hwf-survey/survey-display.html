@@ -1,37 +1,49 @@
 <img src="images/hacks-with-friends-2016-banner.jpg" class="img-responsive center-block" alt="Responsive image">
-<h3>Thanks for attending Hacks with Friends</h3>
-<div class="container-fluid" ng-controller="HwfSurveyController as hwfSurveyController">
-    <h4>We would love to get your insight on your overall experience at Hacks with Friends:</h4>
-    <br />
-    <form>
-        <div ng-repeat="question in surveydef.questions">
-            <div class="form-group">
-                <div><label>{{question.questionText}}</label></div>
-                <div ng-switch on="question.answerType">
-                    <div ng-switch-when="BUTTONS">
-                        <div class="btn-group half-width-container" role="group">
-                            <label ng-repeat="answer in question.availableAnswers" ng-model="question.selectedAnswer" uib-btn-radio="answer" class="btn btn-primary half-width">{{answer}}</label>
+<div ng-controller="HwfSurveyController as hwfSurveyController">
+    <div ng-show="!surveySubmitted">
+        <h3>Thanks for attending Hacks with Friends</h3>
+        <div class="container-fluid">
+            <h4>We would love to get your insight on your overall experience at Hacks with Friends:</h4>
+            <br />
+            <form>
+                    <div ng-repeat="question in surveydef.questions">
+                        <div class="form-group">
+                            <div><label>{{question.questionText}}</label></div>
+                            <div ng-switch on="question.answerType">
+                                <div ng-switch-when="BUTTONS">
+                                    <div class="btn-group half-width-container" role="group">
+                                        <label ng-repeat="answer in question.availableAnswers" ng-model="question.selectedAnswer" uib-btn-radio="answer" class="btn btn-primary btn-lg half-width">{{answer}}</label>
+                                    </div>
+                                </div>
+                                <div ng-switch-when="BUTTONS_VERTICAL">
+                                    <div class="btn-group-vertical half-width-container" role="group">
+                                        <label ng-repeat="answer in question.availableAnswers" ng-model="question.selectedAnswer" uib-btn-radio="answer" class="btn btn-primary btn-lg full-width">{{answer}}</label>
+                                    </div>
+                                </div>
+                                <div ng-switch-when="TEXTAREA">
+                                    <textarea class="form-control" ng-model="question.selectedAnswer"></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div ng-switch-when="BUTTONS_VERTICAL">
-                        <div class="btn-group-vertical half-width-container" role="group">
-                            <label ng-repeat="answer in question.availableAnswers" ng-model="question.selectedAnswer" uib-btn-radio="answer" class="btn btn-primary full-width">{{answer}}</label>
-                        </div>
+                    <div class="text-center">
+                        <input type="submit" value="Submit Survey" ng-click="hwfSurveyController.submitSurvey()" class="btn btn-primary btn-lg" />
                     </div>
-                    <div ng-switch-when="TEXTAREA">
-                        <textarea class="form-control" ng-model="question.selectedAnswer"></textarea>
-                    </div>
-                </div>
-            </div>
+                    <br />
+                    <br />
+                    <br />
+            </form>
         </div>
-        <input type="submit" value="Submit Survey" ng-click="hwfSurveyController.submitSurvey()"/>
+    </div>
+    <div ng-show="surveySubmitted && !showResults" class="text-center">
+        <br />
+        <h4>Submitting...</h4>
         <br />
         <br />
-        <br />
-        Overall Results:
-        <br />
-        <input type="submit" value="Get Results" ng-click="hwfSurveyController.getResults()"/>
-        <br />
-        {{results}}
-    </form>
+    </div>
+    <div ng-hide="!showResults">
+        <h3>Thanks for taking the survey!</h3>
+        <h5>Here are the results at this point:</h5>
+        <div id="charts"></div>
+    </div>
 </div>

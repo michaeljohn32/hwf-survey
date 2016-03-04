@@ -3,12 +3,13 @@ package edu.umich.hwf.persistence;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Component
 public class MockStorage implements Persistence {
 
-    private HashMap<String, HashMap<String, Integer>> surveyResults = new HashMap<>();
+    private HashMap<String, HashMap<String, Integer>> surveyResults = new LinkedHashMap<>();
 
     public void registerQuestionAndAnswer(String question, String answer) {
         if (surveyResults.containsKey(question)) {
@@ -17,7 +18,7 @@ public class MockStorage implements Persistence {
                 questionAnswers.put(answer, 0);
             }
         } else {
-            HashMap<String, Integer> questionAnswers = new HashMap<>();
+            HashMap<String, Integer> questionAnswers = new LinkedHashMap<>();
             questionAnswers.put(answer, 0);
             surveyResults.put(question, questionAnswers);
         }
