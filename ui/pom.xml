@@ -48,9 +48,9 @@
                             <resources>
                                 <resource>
                                     <directory>node_modules</directory>
-                                    <include>angular/angular.js</include>
-                                    <include>angular-route/angular-route.js</include>
-                                    <include>angular-resource/angular-resource.js</include>
+                                    <include>angular/angular.min.js</include>
+                                    <include>angular-route/angular-route.min.js</include>
+                                    <include>angular-resource/angular-resource.min.js</include>
                                     <include>angular-ui-bootstrap/dist/ui-bootstrap-tpls.js</include>
                                     <include>bootstrap/dist/css/bootstrap.min.css</include>
                                 </resource>

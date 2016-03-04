@@ -1,19 +1,15 @@
 package edu.umich.hwf.persistence;
 
-import edu.umich.hwf.persistence.MockStorage;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class TestPersistence {
-	GooglePersistence persistence;
+    private Persistence persistence;
 
     static final String question1="Q1";
     static final String question2="Q2";
@@ -44,65 +40,64 @@ public class TestPersistence {
     public void Setup() {
 //        System.out.println("Setup() called");
         persistence = new MockStorage();
-        assertTrue(persistence.addQuestionAnswer(question1, question1Answer1));
-        assertTrue(persistence.addQuestionAnswer(question1, question1Answer2));
-        assertTrue(persistence.addQuestionAnswer(question1, question1Answer3));
-        assertTrue(persistence.addQuestionAnswer(question2, question2Answer1));
-        assertTrue(persistence.addQuestionAnswer(question2, question2Answer2));
+        persistence.registerQuestionAndAnswer(question1, question1Answer1);
+        persistence.registerQuestionAndAnswer(question1, question1Answer2);
+        persistence.registerQuestionAndAnswer(question1, question1Answer3);
+        persistence.registerQuestionAndAnswer(question2, question2Answer1);
+        persistence.registerQuestionAndAnswer(question2, question2Answer2);
 
         //simulating 2 responses of answer 1 for question1
-        persistence.persistQuestion(question1, question1Answer1);
-        persistence.persistQuestion(question1, question1Answer1);
+        persistence.persistQuestion(question1, question1Answer1, false);
+        persistence.persistQuestion(question1, question1Answer1, false);
 
         //simulating 3 responses of answer 2 for question1
-        persistence.persistQuestion(question1, question1Answer2);
-        persistence.persistQuestion(question1, question1Answer2);
-        persistence.persistQuestion(question1, question1Answer2);
+        persistence.persistQuestion(question1, question1Answer2, false);
+        persistence.persistQuestion(question1, question1Answer2, false);
+        persistence.persistQuestion(question1, question1Answer2, false);
 
         //simulating 3 responses of answer 3 for question1
-        persistence.persistQuestion(question1, question1Answer3);
-        persistence.persistQuestion(question1, question1Answer3);
-        persistence.persistQuestion(question1, question1Answer3);
+        persistence.persistQuestion(question1, question1Answer3, false);
+        persistence.persistQuestion(question1, question1Answer3, false);
+        persistence.persistQuestion(question1, question1Answer3, false);
 
         //simulating 1 response of answer1 for question 2
-        persistence.persistQuestion(question2, question2Answer1);
+        persistence.persistQuestion(question2, question2Answer1, false);
 
         //simulating 2 response of answer2 for question 2
-        persistence.persistQuestion(question2, question2Answer2);
-        persistence.persistQuestion(question2, question2Answer2);
+        persistence.persistQuestion(question2, question2Answer2, false);
+        persistence.persistQuestion(question2, question2Answer2, false);
     }
 
     @Test
     public void addQuestionAnswer(){
-        assertTrue(persistence.addQuestionAnswer(questionWrong, answerWrong));
-        assertTrue(persistence.addQuestionAnswer(questionWrong, answerWrong));
+        persistence.registerQuestionAndAnswer(questionWrong, answerWrong);
+        persistence.registerQuestionAndAnswer(questionWrong, answerWrong);
     }
 
     @Test
     public void persistQuestion(){
-        assertFalse(persistence.persistQuestion(questionWrong, answerWrong));
-        assertFalse(persistence.persistQuestion(question1, answerWrong));
-        assertTrue(persistence.persistQuestion(question1, question1Answer1));
+        assertFalse(persistence.persistQuestion(questionWrong, answerWrong, false));
+        assertFalse(persistence.persistQuestion(question1, answerWrong, false));
+        assertTrue(persistence.persistQuestion(question1, question1Answer1, false));
     }
-
 
     @Test
     public void getQuestionResults() {
-        Map<String,Integer> answers=persistence.getQuestionResults(this.question1);
+        Map<String,Integer> answers=persistence.getQuestionResults(question1);
         assertEquals(numQ1A, answers.size());
         Integer count=answers.get(question1Answer1);
         assertEquals(numQ1A1, count.intValue());
         count=answers.get(question1Answer2);
         assertEquals(numQ1A2, count.intValue());
 
-        answers=persistence.getQuestionResults(this.question2);
+        answers=persistence.getQuestionResults(question2);
         assertEquals(numQ2A, answers.size());
         count=answers.get(question2Answer1);
         assertEquals(numQ2A1, count.intValue());
         count=answers.get(question2Answer2);
         assertEquals(numQ2A2, count.intValue());
 
-        answers=persistence.getQuestionResults(this.questionWrong);
+        answers=persistence.getQuestionResults(questionWrong);
         assertNull(answers);
     }
 
@@ -113,13 +108,13 @@ public class TestPersistence {
 
         Map<String, Integer> q1res=allRes.get(question1);
         assertEquals(numQ1A, q1res.size());
-        assertEquals(this.numQ1A1, q1res.get(this.question1Answer1).intValue());
-        assertEquals(this.numQ1A2, q1res.get(this.question1Answer2).intValue());
+        assertEquals(numQ1A1, q1res.get(question1Answer1).intValue());
+        assertEquals(numQ1A2, q1res.get(question1Answer2).intValue());
 
         Map<String, Integer> q2res=allRes.get(question2);
         assertEquals(numQ2A, q2res.size());
-        assertEquals(this.numQ2A1, q2res.get(this.question2Answer1).intValue());
-        assertEquals(this.numQ2A2, q2res.get(this.question2Answer2).intValue());
+        assertEquals(numQ2A1, q2res.get(question2Answer1).intValue());
+        assertEquals(numQ2A2, q2res.get(question2Answer2).intValue());
     }
 
 //	private static void printQuestionResults(String name){

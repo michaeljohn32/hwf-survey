@@ -3,6 +3,8 @@ package edu.umich.hwf.controllers;
 import edu.umich.hwf.domain.AnswerType;
 import edu.umich.hwf.domain.Survey;
 import edu.umich.hwf.domain.SurveyQuestion;
+import edu.umich.hwf.persistence.MockStorage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -15,6 +17,9 @@ import static edu.umich.hwf.domain.SurveyQuestion.*;
 @RestController
 @RequestMapping("/survey-definition")
 public class SurveyDefinitionController {
+
+    @Autowired
+    private MockStorage mockStorage;
 
     @RequestMapping
     @ResponseStatus(HttpStatus.OK)
@@ -49,6 +54,16 @@ public class SurveyDefinitionController {
 
         survey.getQuestions().add(new SurveyQuestion("Other feedback or comments?", AnswerType.TEXTAREA));
 
+        registerSurveyQuestionAnswers(survey);
+
         return survey;
+    }
+
+    private void registerSurveyQuestionAnswers(Survey survey) {
+        survey.getQuestions().forEach(question -> {
+            if (question.getAvailableAnswers() != null) {
+                question.getAvailableAnswers().forEach(answer -> mockStorage.registerQuestionAndAnswer(question.getQuestionText(), answer));
+            }
+        });
     }
 }

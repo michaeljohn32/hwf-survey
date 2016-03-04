@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -25,7 +26,7 @@ public class SurveyQuestion {
     private String selectedAnswer;
 
     public SurveyQuestion(String questionText, AnswerType answerType) {
-        this(questionText, answerType, null);
+        this(questionText, answerType, Collections.emptyList());
     }
 
     public SurveyQuestion(String questionText, AnswerType answerType, List<String> availableAnswers) {

@@ -1,9 +1,8 @@
-<h3>Thanks for attending Hacks with Friends.</h3>
-<br />
-<br />
+<img src="images/hacks-with-friends-2016-banner.jpg" class="img-responsive center-block" alt="Responsive image">
+<h3>Thanks for attending Hacks with Friends</h3>
 <div class="container-fluid" ng-controller="HwfSurveyController as hwfSurveyController">
+    <h4>We would love to get your insight on your overall experience at Hacks with Friends. Below is a short list of questions (all are optional):</h4>
     <br />
-    <h4>We would love to get your insight on your overall experience at Hacks with Friends. Below is a short list of questions:</h4>
     <form>
         <div ng-repeat="question in surveydef.questions">
             <div class="form-group">
@@ -11,12 +10,12 @@
                 <div ng-switch on="question.answerType">
                     <div ng-switch-when="BUTTONS">
                         <div class="btn-group" role="group">
-                            <button ng-repeat="answer in question.availableAnswers" ng-click="question.selectedAnswer = answer" type="button" class="btn btn-secondary">{{answer}}</button>
+                            <label ng-repeat="answer in question.availableAnswers" ng-model="question.selectedAnswer" uib-btn-radio="answer" class="btn btn-primary">{{answer}}</label>
                         </div>
                     </div>
                     <div ng-switch-when="BUTTONS_VERTICAL">
                         <div class="btn-group-vertical" role="group">
-                            <button ng-repeat="answer in question.availableAnswers" ng-click="question.selectedAnswer = answer" type="button" class="btn btn-secondary">{{answer}}</button>
+                            <label ng-repeat="answer in question.availableAnswers" ng-model="question.selectedAnswer" uib-btn-radio="answer" class="btn btn-primary">{{answer}}</label>
                         </div>
                     </div>
                     <div ng-switch-when="TEXTAREA">
