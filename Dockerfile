@@ -36,7 +36,7 @@ RUN set -x \
 	&& tar -xvf tomcat.tar.gz --strip-components=1 \
 	&& rm bin/*.bat \
 	&& rm tomcat.tar.gz*
-
+RUN /bin/pwd > /tmp/workdir
 COPY $ARTIFACT_URL $CATALINA_HOME/webapps/
 
 EXPOSE 8080
