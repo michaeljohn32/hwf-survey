@@ -30,7 +30,8 @@ node {
         sh "cp ../Dockerfile ."
         sh "cp ../ui/target/hwf-survey.war ."
         mobileSurveyAppImage = docker.build "hwf-survey"
-       // container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
+        container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
+
     }
 
    stage 'Publish Docker Image'
