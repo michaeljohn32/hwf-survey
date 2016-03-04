@@ -13,19 +13,20 @@ public class TestPersistence {
 
     static final String question1="Q1";
     static final String question2="Q2";
+    static final String question3 ="Free Format";
     static final String questionWrong="No such question";
 
 
-    static final int numQ=2;  //number of questions
+    static final int numQ=3;  //number of questions
     static final int numQ1A=3; //number of possible answers for question 1
     static final int numQ2A=2;  // number of possible answers for question 2
+
 
     static final int numQ1A1=2;  //count of responses of type A1 for Question 1
     static final int numQ1A2=3;  //count of responses of type A2 for Question 1
     static final int numQ1A3=3;  //count of responses of type A3 for Question 1
-
     static final int numQ2A1=1;  //count of responses of type A1 for Question 2
-    static final int numQ2A2=2;   //count of responses of type A2 for Question 2
+    static final int numQ2A2=0;   //count of responses of type A2 for Question 2
 
     static final String question1Answer1="a";
     static final String question1Answer2="b";
@@ -33,6 +34,7 @@ public class TestPersistence {
     static final String question2Answer1="Yes";
     static final String question2Answer2="No";
     static final String answerWrong="No such answer";
+    static final String question3Answer="Free Format Answers";
 
 
     // Create an "empty" database, populate with question/answer pairs, simulate a few responses
@@ -40,11 +42,13 @@ public class TestPersistence {
     public void Setup() {
 //        System.out.println("Setup() called");
         persistence = new MockStorage();
+        //registering the questions and answers.
         persistence.registerQuestionAndAnswer(question1, question1Answer1);
         persistence.registerQuestionAndAnswer(question1, question1Answer2);
         persistence.registerQuestionAndAnswer(question1, question1Answer3);
         persistence.registerQuestionAndAnswer(question2, question2Answer1);
         persistence.registerQuestionAndAnswer(question2, question2Answer2);
+        persistence.registerQuestionAndAnswer(question3, "");
 
         //simulating 2 responses of answer 1 for question1
         persistence.persistQuestion(question1, question1Answer1, false);
@@ -64,21 +68,45 @@ public class TestPersistence {
         persistence.persistQuestion(question2, question2Answer1, false);
 
         //simulating 2 response of answer2 for question 2
-        persistence.persistQuestion(question2, question2Answer2, false);
-        persistence.persistQuestion(question2, question2Answer2, false);
+//        persistence.persistQuestion(question2, question2Answer2, false);
+//        persistence.persistQuestion(question2, question2Answer2, false);
+
+        //simulating freeformat anaswer.
+        persistence.persistQuestion(question3,question3Answer, true);
     }
 
     @Test
-    public void addQuestionAnswer(){
-        persistence.registerQuestionAndAnswer(questionWrong, answerWrong);
-        persistence.registerQuestionAndAnswer(questionWrong, answerWrong);
+    public void persistQuestions(){
+        Map<String, String> responses = new HashMap<String,String>();
+        responses.put(question1,question1Answer1);
+        responses.put(question3,"Any free format text");
+        persistence.persistQuestions(responses);
+
+        Map<String, HashMap<String, Integer>> allRes=persistence.getFullResults();
+        assertEquals(numQ, allRes.size());
+
+        Map<String, Integer> q1res=allRes.get(question1);
+        assertEquals(numQ1A, q1res.size());
+        assertEquals(numQ1A1+1, q1res.get(question1Answer1).intValue());
+        assertEquals(numQ1A2, q1res.get(question1Answer2).intValue());
+
+        Map<String, Integer> q2res=allRes.get(question2);
+        assertEquals(numQ2A, q2res.size());
+        assertEquals(numQ2A1, q2res.get(question2Answer1).intValue());
+        assertEquals(numQ2A2, q2res.get(question2Answer2).intValue());
+
+        Map<String, Integer> q3res=allRes.get(question3);
+        assertEquals(3, q3res.size()); // FIXME: change 3 to a sensible named constant
     }
+
 
     @Test
     public void persistQuestion(){
         assertFalse(persistence.persistQuestion(questionWrong, answerWrong, false));
+        assertFalse(persistence.persistQuestion(questionWrong, answerWrong, true));
         assertFalse(persistence.persistQuestion(question1, answerWrong, false));
         assertTrue(persistence.persistQuestion(question1, question1Answer1, false));
+        assertTrue(persistence.persistQuestion(question3, answerWrong, true));
     }
 
     @Test
@@ -97,8 +125,11 @@ public class TestPersistence {
         count=answers.get(question2Answer2);
         assertEquals(numQ2A2, count.intValue());
 
+
         answers=persistence.getQuestionResults(questionWrong);
         assertNull(answers);
+
+
     }
 
     @Test
@@ -116,6 +147,9 @@ public class TestPersistence {
         assertEquals(numQ2A1, q2res.get(question2Answer1).intValue());
         assertEquals(numQ2A2, q2res.get(question2Answer2).intValue());
     }
+
+
+
 
 //	private static void printQuestionResults(String name){
 //

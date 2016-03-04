@@ -22,6 +22,8 @@ public class GoogleStorage implements Persistence {
         //drive.
         return false;
     }
+    public void persistQuestions(Map<String, String> responses) {
+    }
 
     public void registerQuestionAndAnswer(String name, String value) {
 

@@ -23,7 +23,8 @@ node {
 
     //unstash 'jar-dockerfile'
     dir('target') {
-        mobileSurveyAppImage = docker.build("--rm --build-arg ARTIFACT_URL=hwf-survey.war") "hwf-survey:v1"
+        sh "cp ../Dockerfile ."
+        mobileSurveyAppImage = docker.build("--rm") "hwf-survey:v1"
         container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
     }
 
