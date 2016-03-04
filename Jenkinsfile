@@ -48,3 +48,4 @@ node {
         withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
             mobileSurveyAppImage.push()
         }
+    }
