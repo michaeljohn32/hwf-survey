@@ -45,7 +45,7 @@ node {
         git url: 'https://github.com/UM-RAD-hack-2016/hwf-survey-functional-tests.git'
         sh "${mvnHome}/bin/mvn clean install"
 
-#        mobileSurveyFuncImage = docker.build "hwf-survey-func"
+//#        mobileSurveyFuncImage = docker.build "hwf-survey-func"
 #        withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
 #            mobileSurveyAppImage.push()
 #        }
