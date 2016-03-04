@@ -1,6 +1,6 @@
 FROM java:8-jre
 
-ARG ARTIFACT_URL=hwf-survey.war
+ARG ARTIFACT_URL=ui/target/hwf-survey.war
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
 RUN mkdir -p "$CATALINA_HOME"
@@ -37,7 +37,7 @@ RUN set -x \
 	&& rm bin/*.bat \
 	&& rm tomcat.tar.gz*
 
-ADD $ARTIFACT_URL $CATALINA_HOME/webapps/
+COPY ui/target/hwf-survey.war $CATALINA_HOME/webapps/
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
