@@ -24,16 +24,14 @@ public class MockStorage implements Persistence {
         }
     }
 
+//  if the question is not registered we return false.
+//  if free format answer is not registered, then register the answer
+
     public boolean persistQuestion(String question, String answer, boolean isFreeformAnswer) {
         Map<String, Integer> answers = surveyResults.get(question);
         boolean questionIsRegistered = answers != null;
         if (!questionIsRegistered) {
-            if (!isFreeformAnswer) {
-                return false;
-            } else {
-                registerQuestionAndAnswer(question, answer);
-                answers = surveyResults.get(question);
-            }
+            return false;
         }
 
         Integer count = answers.get(answer);
