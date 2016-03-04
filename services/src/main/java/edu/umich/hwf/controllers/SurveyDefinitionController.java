@@ -30,8 +30,10 @@ public class SurveyDefinitionController {
 
     private void registerSurveyQuestionAnswers(Survey survey) {
         survey.getQuestions().forEach(question -> {
-            if (question.getAvailableAnswers() != null) {
+            if (question.getAvailableAnswers() != null && !question.getAvailableAnswers().isEmpty()) {
                 question.getAvailableAnswers().forEach(answer -> mockStorage.registerQuestionAndAnswer(question.getQuestionText(), answer));
+            } else {
+                mockStorage.registerQuestionAndAnswer(question.getQuestionText(), "");
             }
         });
     }
