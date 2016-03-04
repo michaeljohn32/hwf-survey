@@ -26,18 +26,18 @@ node {
    stage 'Build Docker Image'
    def mobileSurveyAppImage
    sh "/bin/ls"
-#   dir('target') {
-#        sh "cp ../Dockerfile ."
-#        mobileSurveyAppImage = docker.build "hwf-survey"
-#       // container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
-#    }
+//#   dir('target') {
+//#        sh "cp ../Dockerfile ."
+//#        mobileSurveyAppImage = docker.build "hwf-survey"
+//#       // container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
+//#    }
 
    stage 'Publish Docker Image'
-#        sh "docker -v"
-#        //use withDockerRegistry to make sure we are logged in to docker hub registry
-#        withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
-#            mobileSurveyAppImage.push()
-#        }
+//#        sh "docker -v"
+//#        //use withDockerRegistry to make sure we are logged in to docker hub registry
+//#        withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
+//#            mobileSurveyAppImage.push()
+//#        }
    sh "/bin/ls"
    stage 'Function test'
    def mobileSurveyFuncImage
