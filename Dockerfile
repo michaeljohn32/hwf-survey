@@ -1,6 +1,6 @@
 FROM java:8-jre
 
-ARG ARTIFACT_URL=target/hwf-survey.war
+ARG ARTIFACT_URL=../ui/target/hwf-survey.war
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
 RUN mkdir -p "$CATALINA_HOME"
