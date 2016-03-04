@@ -23,6 +23,7 @@ node {
 
     //unstash 'jar-dockerfile'
     dir('target') {
+        sh "cp ../Dockerfile ."
         mobileSurveyAppImage = docker.build("--rm") "hwf-survey:v1"
         container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
     }
