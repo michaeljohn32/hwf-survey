@@ -42,7 +42,6 @@ public class GoogleServiceAccount {
     private static final String PROPERTY_SUFFIX_LTI_URL = ".lti.launchUrl";
     private static final String PROPERTY_SUFFIX_GOOGLE_APPROVED_SHARING_LIMIT= ".google.sharing.limit.size";
     // These constants are used for loading properties from system files
-    private static final String SYSTEM_PROPERTY_FILE_PATH = "googleServicePropsPath";
     private static final String SYSTEM_PROPERTY_FILE_DEFAULT_NAME = "googleServiceProps.properties";
     private static final String PROPERTY_SUFFIX_GOOGLE_CONTEXT = ".context";
 
@@ -56,27 +55,14 @@ public class GoogleServiceAccount {
     private static PropertiesConfiguration config;
 
     static private void initProperties() {
-        String propertiesFilePath = System
-                .getProperty(SYSTEM_PROPERTY_FILE_PATH);
         File in = null;
         try {
             // loads the file from the tomcat directory
 
-            if (!isEmpty(propertiesFilePath)) {
-                in = new File(propertiesFilePath);
-            } else {
-                // loads the file from inside of the war
-                String packagePath = GoogleServiceAccount.class.getPackage()
-                        .getName().replace(".", File.separator);
-                in = new File(GoogleServiceAccount.class.getClassLoader()
-                        .getResource(
-                                packagePath + File.separator
-                                        + SYSTEM_PROPERTY_FILE_DEFAULT_NAME).toURI());
-            }
-            if (in != null) {
-                config = new PropertiesConfiguration(in);
-                config.setReloadingStrategy(new FileChangedReloadingStrategy());
-            }
+            in = new File("/Users/clementp/googleServiceProps.properties");
+
+            config = new PropertiesConfiguration(in);
+            config.setReloadingStrategy(new FileChangedReloadingStrategy());
         } catch (Exception err) {
             M_log.error(
                     "Failed to load system properties(googleServiceProps.properties) for GoogleServiceAccount",

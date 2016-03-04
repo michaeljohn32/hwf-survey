@@ -64,21 +64,18 @@ public class GoogleSecurity {
         try {
             // check for valid setup
             String filePath = serviceAccount.getPrivateKeyFilePath();
-            // If this path is in classpath, get the file's path from it
-            if (serviceAccount.getPrivateKeyFileClasspath()) {
-                filePath = GoogleSecurity.class.getClassLoader()
-                        .getResource(filePath).getFile();
-            }
             File privateKeyFile = new File(filePath);
             // Get service account credential
             String[] scopes = serviceAccount.getScopesArray();
             List<String> scopesCollection = Arrays.asList(scopes);
             result = new GoogleCredential.Builder()
-                    .setTransport(HTTP_TRANSPORT).setJsonFactory(JSON_FACTORY)
+                    .setTransport(HTTP_TRANSPORT)
+                    .setJsonFactory(JSON_FACTORY)
                     .setServiceAccountId(serviceAccount.getEmailAddress())
                     .setServiceAccountScopes(scopesCollection)
                     .setServiceAccountPrivateKeyFromP12File(privateKeyFile)
-                    .setServiceAccountUser(emailAddress).build();
+                    .setServiceAccountUser(emailAddress)
+                    .build();
         } catch (Exception err) {
             M_log.warn("Failed to Google Authorize " + emailAddress);
             err.printStackTrace();
