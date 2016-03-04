@@ -32,6 +32,8 @@ hwfSurveyControllers.controller('HwfSurveyController', function ($scope, $http) 
                                 yAxis: { title: { text: 'Count' } },
                                 series: [{ showInLegend: false, data: surveyQuestion.counts, name: null }],
                                 credits: { enabled: false },
+                                tooltip: { enabled: false },
+                                colors: ['#587abc', '#83b2a8', '#7a121c', '#655a52', '#cc6600']
                             });
                             i++;
                         } else {
@@ -40,9 +42,11 @@ hwfSurveyControllers.controller('HwfSurveyController', function ($scope, $http) 
                             div.innerHTML = surveyQuestion.questionText;
                             document.getElementById('charts').appendChild(div);
                             surveyQuestion.answers.forEach(function(answer) {
-                                var answerDiv = document.createElement("blockquote");
-                                answerDiv.innerHTML = answer;
-                                document.getElementById('charts').appendChild(answerDiv);
+                                if (answer) {
+                                    var answerDiv = document.createElement("blockquote");
+                                    answerDiv.innerHTML = answer;
+                                    document.getElementById('charts').appendChild(answerDiv);
+                                }
                             });
                         }
                     });
