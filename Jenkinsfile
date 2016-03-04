@@ -14,7 +14,7 @@ node {
    // Run the maven compile
    sh "${mvnHome}/bin/mvn clean compile"
 
-   stage 'Compile'
+   stage 'Test'
    // Run the maven test
    sh "${mvnHome}/bin/mvn test"
 
@@ -24,14 +24,27 @@ node {
 
    //Build docker image for app and tests in parallel
    stage 'Build Docker Image'
-
    def mobileSurveyAppImage
 
-    //unstash 'jar-dockerfile'
-    dir('target') {
+   dir('target') {
         sh "cp ../Dockerfile ."
         mobileSurveyAppImage = docker.build("--rm") "hwf-survey"
-        container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
+       // container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
     }
 
-}
+   stage 'Publish Docker Image'
+        sh "docker -v"
+        //use withDockerRegistry to make sure we are logged in to docker hub registry
+        withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
+            mobileSurveyAppImage.push()
+        }
+   stage 'Function test'
+   def mobileSurveyFuncImage
+
+        git url: 'https://github.com/UM-RAD-hack-2016/hwf-survey-functional-tests.git'
+        sh "${mvnHome}/bin/mvn clean install"
+
+        mobileSurveyFuncImage = docker.build "hwf-survey-func"
+        withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
+            mobileSurveyAppImage.push()
+        }
