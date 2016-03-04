@@ -46,7 +46,7 @@ node {
         sh "${mvnHome}/bin/mvn clean install"
 
 //#        mobileSurveyFuncImage = docker.build "hwf-survey-func"
-#        withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
-#            mobileSurveyAppImage.push()
-#        }
+//#        withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
+//#            mobileSurveyAppImage.push()
+//#        }
     }
