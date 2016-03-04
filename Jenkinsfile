@@ -13,5 +13,18 @@ node {
    // Mark the code build 'stage'....
    stage 'Build'
    // Run the maven build
-   sh "${mvnHome}/bin/mvn clean install"
+   sh "${mvnHome}/bin/mvn clean package"
+   //stash target/hwf-survey.war
+
+   //Build docker image for app and tests in parallel
+   stage 'Build Docker Image'
+
+   def mobileSurveyApp
+
+    //unstash 'jar-dockerfile'
+    dir('target') {
+        mobileSurveyAppImage = docker.build("--rm --build-arg ARTIFACT_URL=hwf-survey.war") "hwf-survey:v1"
+        container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
+    }
+
 }
