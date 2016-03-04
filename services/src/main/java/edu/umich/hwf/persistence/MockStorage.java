@@ -24,6 +24,12 @@ public class MockStorage implements Persistence {
         }
     }
 
+    public void persistQuestions(Map<String,String> responses) {
+        for (Map.Entry<String, String> entry : responses.entrySet()) {
+            this.persistQuestion(entry.getKey(), entry.getValue(), true);
+        }
+    }
+
 //  if the question is not registered we return false.
 //  if free format answer is not registered, then register the answer
 
