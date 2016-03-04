@@ -59,7 +59,8 @@ public class GoogleServiceAccount {
         try {
             // loads the file from the tomcat directory
 
-            in = new File("/Users/clementp/googleServiceProps.properties");
+            String home = System.getProperty("user.home");
+            in = new File(home + "/googleServiceProps.properties");
 
             config = new PropertiesConfiguration(in);
             config.setReloadingStrategy(new FileChangedReloadingStrategy());
