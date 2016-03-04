@@ -28,7 +28,7 @@ node {
 
    dir('target') {
         sh "cp ../Dockerfile ."
-        mobileSurveyAppImage = docker.build("--rm") "hwf-survey"
+        mobileSurveyAppImage = docker.build "hwf-survey"
        // container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
     }
 
