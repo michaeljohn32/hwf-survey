@@ -43,8 +43,8 @@ node {
         sh "docker -v"
         //use withDockerRegistry to make sure we are logged in to docker hub registry
         withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
-            int length = mobileSurveyAppImage.length()
-            mobileSurveyAppImage = mobileSurveyAppImage.substring(6,length)
+//            int length = mobileSurveyAppImage.length()
+//            mobileSurveyAppImage = mobileSurveyAppImage.substring(6,length)
             mobileSurveyAppImage.push()
         }
    sh "/bin/ls"
