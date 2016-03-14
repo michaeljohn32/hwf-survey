@@ -1,3 +1,5 @@
+#!groovy
+
 node {
    // Mark the code checkout 'stage'....
    stage 'Checkout'
@@ -31,6 +33,7 @@ node {
         sh "cp ../ui/target/hwf-survey.war ."
         int length = mobileSurveyAppImage.length()
         mobileSurveyAppImage = mobileSurveyAppImage.substring(6,length)
+        echo "mobile: ${mobileSurveyAppImage}"
         mobileSurveyAppImage = docker.build "hwf-survey"
         container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
 
