@@ -32,10 +32,10 @@ node {
         sh "cp ../Dockerfile ."
         sh "cp ../ui/target/hwf-survey.war ."
         mobileSurveyAppImage = docker.build "hwf-survey"
-        if (mobileSurveyAppImage.indexOf("sha256"))
-        {
-          mobileSurveyAppImage = mobileSurveyAppImage.substring(6)
-        }
+//        if (mobileSurveyAppImage.indexOf("sha256"))
+//        {
+//          mobileSurveyAppImage = mobileSurveyAppImage.substring(6)
+//        }
         container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
     }
 
