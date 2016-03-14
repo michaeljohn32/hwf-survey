@@ -35,7 +35,6 @@ node {
         int length = mobileSurveyAppImage.length()
         mobileSurveyAppImage = mobileSurveyAppImage.substring(6,length)
         echo "mobile: ${mobileSurveyAppImage}"
-        mobileSurveyAppImage = docker.build "hwf-survey"
         container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
 
     }
