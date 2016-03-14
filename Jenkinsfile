@@ -31,6 +31,7 @@ node {
    dir('target') {
         sh "cp ../Dockerfile ."
         sh "cp ../ui/target/hwf-survey.war ."
+        mobileSurveyAppImage = docker.build "hwf-survey"
         int length = mobileSurveyAppImage.length()
         mobileSurveyAppImage = mobileSurveyAppImage.substring(6,length)
         echo "mobile: ${mobileSurveyAppImage}"
