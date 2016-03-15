@@ -65,7 +65,7 @@ node {
 //            mobileSurveyFuncImage.push()
 //        }
     stage 'Run Functional Tests'
-    sh " echo 'browser:\n\tvendor: htmlunit' > application.yml"
+    sh " echo 'browser:\n  vendor: htmlunit' > application.yml"
     sh "java -jar target/hwf-survey-functional-tests.jar"
     }
 
