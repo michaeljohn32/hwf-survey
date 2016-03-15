@@ -31,12 +31,12 @@ node {
    dir('target') {
         sh "cp ../Dockerfile ."
         sh "cp ../ui/target/hwf-survey.war ."
-        mobileSurveyAppImage = docker.build "hwf-survey"
+        mobileSurveyAppImage = docker.build "michaeljohn32/hwf-survey"
 //        if (mobileSurveyAppImage.indexOf("sha256"))
 //        {
 //          mobileSurveyAppImage = mobileSurveyAppImage.substring(6)
 //        }
-        container = mobileSurveyAppImage.run("--name hwf-survey -p 8080:8080")
+        container = mobileSurveyAppImage.run("--name michaeljohn32/hwf-survey -p 8080:8080")
     }
 
    stage 'Publish Docker Image'
@@ -54,7 +54,7 @@ node {
         git url: 'https://github.com/UM-RAD-hack-2016/hwf-survey-functional-tests.git'
         sh "${mvnHome}/bin/mvn clean install"
 
-        mobileSurveyFuncImage = docker.build "hwf-survey-func"
+        mobileSurveyFuncImage = docker.build "michaeljohn32/hwf-survey-func"
         withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
             mobileSurveyAppImage.push()
         }
