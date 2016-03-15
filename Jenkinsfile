@@ -42,7 +42,7 @@ node {
 //        {
 //          mobileSurveyAppImage = mobileSurveyAppImage.substring(6)
 //        }
-        container = mobileSurveyAppImage.run("--name michaeljohn32/hwf-survey -p 8080:8080")
+        container = mobileSurveyAppImage.run("--name hwf-survey-${buildVersion} -p 8080:8080")
     }
 
    stage 'Publish Docker Image'
