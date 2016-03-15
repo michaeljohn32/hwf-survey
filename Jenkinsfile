@@ -57,7 +57,7 @@ node {
    stage 'Build Functional test jar'
    def mobileSurveyFuncImage
 
-        git url: 'https://github.com/UM-RAD-hack-2016/hwf-survey-functional-tests.git'
+        git url: 'https://github.com/michaeljohn32/hwf-survey-functional-tests.git'
         sh "${mvnHome}/bin/mvn clean install"
  
 //        mobileSurveyFuncImage = docker.build "michaeljohn32/hwf-survey-func:${buildVersion}"
