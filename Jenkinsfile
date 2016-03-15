@@ -1,5 +1,5 @@
 #!groovy
-
+def buildVersion = null
 node {
    // Mark the code checkout 'stage'....
    stage 'Checkout'
@@ -28,6 +28,12 @@ node {
    stage 'Build Docker Image'
    def mobileSurveyAppImage
    sh "/bin/ls"
+   def matcher = readFile('pom.xml') =~ '<version>(.+)</version>'
+   if (matcher) {
+     buildVersion = matcher[0][1]
+     echo "Release version: ${buildVersion}"
+   }
+   matcher = null
    dir('target') {
         sh "cp ../Dockerfile ."
         sh "cp ../ui/target/hwf-survey.war ."
