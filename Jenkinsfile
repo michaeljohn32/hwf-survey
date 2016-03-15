@@ -65,6 +65,6 @@ node {
 //            mobileSurveyFuncImage.push()
 //        }
     stage 'Run Functional Tests'
-    sh "java -jar target/hwf-functional-tests.jar"
+    sh "java -jar target/hwf-survey-functional-tests.jar"
     }
 
