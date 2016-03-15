@@ -42,7 +42,7 @@ node {
 //        {
 //          mobileSurveyAppImage = mobileSurveyAppImage.substring(6)
 //        }
-        container = mobileSurveyAppImage.run("--name hwf-survey-${buildVersion} -p 8080:8080")
+        container = mobileSurveyAppImage.run("--name hwf-survey-${buildVersion} -p 8081:8080")
     }
 
    stage 'Publish Docker Image'
@@ -62,6 +62,6 @@ node {
 
         mobileSurveyFuncImage = docker.build "michaeljohn32/hwf-survey-func"
         withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
-            mobileSurveyAppImage.push()
+            mobileSurveyFuncImage.push()
         }
     }
