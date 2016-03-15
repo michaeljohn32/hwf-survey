@@ -54,14 +54,17 @@ node {
             mobileSurveyAppImage.push()
         }
    sh "/bin/ls"
-   stage 'Function test'
+   stage 'Build Functional test jar'
    def mobileSurveyFuncImage
 
         git url: 'https://github.com/UM-RAD-hack-2016/hwf-survey-functional-tests.git'
         sh "${mvnHome}/bin/mvn clean install"
-
-        mobileSurveyFuncImage = docker.build "michaeljohn32/hwf-survey-func"
-        withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
-            mobileSurveyFuncImage.push()
-        }
+ 
+//        mobileSurveyFuncImage = docker.build "michaeljohn32/hwf-survey-func:${buildVersion}"
+//        withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
+//            mobileSurveyFuncImage.push()
+//        }
+    stage 'Run Functional Tests'
+    sh "java -jar target/hwf-functional-tests.jar"
     }
+
