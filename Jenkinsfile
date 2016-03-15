@@ -31,7 +31,7 @@ node {
    dir('target') {
         sh "cp ../Dockerfile ."
         sh "cp ../ui/target/hwf-survey.war ."
-        mobileSurveyAppImage = docker.build "michaeljohn32/hwf-survey"
+        mobileSurveyAppImage = docker.build "michaeljohn32/hwf-survey:${buildVersion}"
 //        if (mobileSurveyAppImage.indexOf("sha256"))
 //        {
 //          mobileSurveyAppImage = mobileSurveyAppImage.substring(6)
