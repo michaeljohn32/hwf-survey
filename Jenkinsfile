@@ -62,6 +62,7 @@ node {
    stage 'Confirm Publication'
      input 'Do you want to publish this image?'
    stage 'Publish Docker Image'
+   dir('target') {
         sh "docker -v"
         //use withDockerRegistry to make sure we are logged in to docker hub registry
         withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
@@ -69,4 +70,5 @@ node {
 //            mobileSurveyAppImage = mobileSurveyAppImage.substring(6,length)
             mobileSurveyAppImage.push()
         }
-   
+   }
+} 
