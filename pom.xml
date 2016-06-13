@@ -15,6 +15,9 @@
 
     <build>
         <pluginManagement>
+            <pluginGroups>
+                 <pluginGroup>org.owasp</pluginGroup>
+            </pluginGroups>
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
