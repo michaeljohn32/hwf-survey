@@ -45,6 +45,15 @@ node {
         container = mobileSurveyAppImage.run("--name hwf-survey-${buildVersion} -p 8080:8080")
     }
 
+   stage 'Publish Docker Image'
+        sh "docker -v"
+        //use withDockerRegistry to make sure we are logged in to docker hub registry
+        withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
+//            int length = mobileSurveyAppImage.length()
+//            mobileSurveyAppImage = mobileSurveyAppImage.substring(6,length)
+            mobileSurveyAppImage.push()
+        }
+   sh "/bin/ls"
    stage 'Build Functional test jar'
    def mobileSurveyFuncImage
 
@@ -59,15 +68,4 @@ node {
     sh " echo 'browser:\n     vendor: htmlunit\n\nsurvey:\n     site:\n        url: http://192.168.99.100:8080/hwf-survey' > application.yml"
     sh "java -jar target/hwf-survey-functional-tests.jar"
     }
-   stage 'Confirm Publication'
-     input 'Do you want to publish this image?'
-   stage 'Publish Docker Image'
-   dir('target') {
-        sh "docker -v"
-        //use withDockerRegistry to make sure we are logged in to docker hub registry
-        withDockerRegistry(registry: [credentialsId: 'docker-hub-michaeljohn32']) {
-//            int length = mobileSurveyAppImage.length()
-//            mobileSurveyAppImage = mobileSurveyAppImage.substring(6,length)
-            mobileSurveyAppImage.push()
-        }
-   }
+
