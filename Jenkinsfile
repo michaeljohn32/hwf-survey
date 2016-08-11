@@ -45,11 +45,13 @@ node {
 //            {
 //              mobileSurveyAppImage = mobileSurveyAppImage.substring(6)
 //            }
-            container = mobileSurveyAppImage.run("--name hwf-survey-${buildVersion} -p 8080:8080")
+            container = mobileSurveyAppImage.run("--name hwf-survey-${buildVersion} -p 8080:8080 --link hwf-mysql-prod")
        }
 
 
        sh "/bin/ls"
+   stage 'Ensure MySQL Database is Available'
+        sh "docker run -it --link hwf-mysql-prod --rm mysql sh -c 'exec mysql -h 192.168.99.100 -P3306 -uroot -e \"show databases\"'"
    stage 'Build Functional test jar'
    def mobileSurveyFuncImage
 
