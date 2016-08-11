@@ -45,7 +45,7 @@ node {
 //            {
 //              mobileSurveyAppImage = mobileSurveyAppImage.substring(6)
 //            }
-            container = mobileSurveyAppImage.run("--name hwf-survey-${buildVersion} -p 8080:8080 --link hwf-mysql-prod")
+            container = mobileSurveyAppImage.run("--name hwf-survey-${buildVersion} -p 8080:8080 --link hwf-mysql-prod:mysqlprod")
        }
 
 
