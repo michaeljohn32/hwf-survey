@@ -51,7 +51,7 @@ node {
 
        sh "/bin/ls"
    stage 'Ensure MySQL Database is Available'
-        sh "docker run -it --link hwf-mysql-prod:mysqlprod1 --rm mysql sh -c 'exec mysql -h 192.168.99.100 -P3306 -uroot -e \"show databases\"'"
+        sh "docker run -i --link hwf-mysql-prod:mysqlprod1 --rm mysql sh -c 'exec mysql -h 192.168.99.100 -P3306 -uroot -e \"show databases\"'"
    stage 'Build Functional test jar'
    def mobileSurveyFuncImage
 
