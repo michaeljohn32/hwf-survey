@@ -55,7 +55,7 @@ node {
         sh "docker run -i --link hwf-mysql-prod:mysqlprod1 --rm mysql sh -c 'exec mysql -h 192.168.99.100 -P3306 -uroot -e \"show databases\"' | grep hwfruns "
 
    stage 'Ensure Users table is populated'
-        sh "docker run -i --link hwf-mysql-prod:mysqlprod1 --rm mysql sh -c 'exec mysql -h 192.168.99.100 -P3306 -uroot -e \"use hwfruns; select * from Users;"' | grep hwfruns "
+        sh "docker run -i --link hwf-mysql-prod:mysqlprod1 --rm mysql sh -c 'exec mysql -h 192.168.99.100 -P3306 -uroot -e \"use hwfruns; select * from Users;\"'"
 
    stage 'Build Functional test jar'
         def mobileSurveyFuncImage
