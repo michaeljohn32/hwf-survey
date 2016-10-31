@@ -52,7 +52,7 @@ node {
        sh "/bin/ls"
 
    stage 'Ensure MySQL Database is Available'
-        sh "docker run -i --link hwf-mysql-prod:mysqlprod1 --rm mysql sh -c 'exec mysql -h $(env|grep MYSQLPROD1_PORT_3306_TCP_ADDR| sed 's/^MYSQLPRPOD1_PORT_3306_TCP_ADDR\=//g') -P3306 -uroot -e \"show databases\"' | grep hwfruns"
+        sh "docker run -i --link hwf-mysql-prod:mysqlprod1 --rm mysql sh -c 'exec mysql -h \$(env|grep MYSQLPROD1_PORT_3306_TCP_ADDR| sed 's/^MYSQLPRPOD1_PORT_3306_TCP_ADDR\=//g') -P3306 -uroot -e \"show databases\"' | grep hwfruns"
 
    stage 'Ensure Users table is populated'
         sh "docker run -i --link hwf-mysql-prod:mysqlprod1 --rm mysql sh -c 'exec mysql -h MYSQLPROD1_PORT_3306_TCP_ADDR -P3306 -uroot -e \"use hwfruns; select * from Users;\"'"
