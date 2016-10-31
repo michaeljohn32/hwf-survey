@@ -70,7 +70,7 @@ node {
     stage 'Run Functional Tests'
         sh " echo 'browser:\n     vendor: htmlunit\n\nsurvey:\n     site:\n        url: http://localhost:8080/hwf-survey' > application.yml"
         sh "java -jar target/hwf-survey-functional-tests.jar"
-    stage "Clean Docker Image"
+    stage "Clean Functional Test Docker Image"
         container.stop()
     stage "Publish and Deploy?"
         input 'Do you want to publish and deploy this image?'
